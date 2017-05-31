@@ -25,8 +25,13 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 505;
-    canvas.height = 606;
+    canvas.numRows = 6;
+    canvas.numCols = 5;
+    canvas.cellWidth = 101;
+    canvas.cellHeight = 83;
+    canvas.width = canvas.cellWidth * canvas.numCols;
+    canvas.height = canvas.cellHeight * canvas.numRows + 108;
+
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -93,8 +98,13 @@ var Engine = (function(global) {
     function updateEntities(dt) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
+            enemy.checkCollisions();
+        });
+        allItems.forEach(function(item) {
+            item.checkCollected();
         });
         player.update();
+        level.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -104,6 +114,13 @@ var Engine = (function(global) {
      * they are just drawing the entire screen over and over.
      */
     function render() {
+
+        var header = [
+                'images/header.png'   // Header image
+        ];
+
+        ctx.drawImage(Resources.get(header[0]), 0, 0);
+
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
@@ -113,18 +130,17 @@ var Engine = (function(global) {
                 'images/stone-block.png',   // Row 2 of 3 of stone
                 'images/stone-block.png',   // Row 3 of 3 of stone
                 'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                'images/grass-block.png',    // Row 2 of 2 of grass
+                'images/grass-block.png',    // Row 2 of 2 of grass
             ],
-            numRows = 6,
-            numCols = 5,
             row, col;
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
          */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
+        for (row = 0; row < canvas.numRows; row++) {
+            for (col = 0; col < canvas.numCols; col++) {
                 /* The drawImage function of the canvas' context element
                  * requires 3 parameters: the image to draw, the x coordinate
                  * to start drawing and the y coordinate to start drawing.
@@ -132,7 +148,7 @@ var Engine = (function(global) {
                  * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                ctx.drawImage(Resources.get(rowImages[row]), col * canvas.cellWidth, row * canvas.cellHeight);
             }
         }
 
@@ -151,7 +167,12 @@ var Engine = (function(global) {
             enemy.render();
         });
 
+        allItems.forEach(function(item) {
+            item.render();
+        });
+
         player.render();
+        level.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -159,7 +180,6 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -171,7 +191,13 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Heart.png',
+        'images/Gem Orange.png',
+        'images/Gem Blue.png',
+        'images/Gem Green.png',
+        'images/header.png',
+        'images/life.png'
     ]);
     Resources.onReady(init);
 
@@ -179,5 +205,14 @@ var Engine = (function(global) {
      * object when run in a browser) so that developers can use it more easily
      * from within their app.js files.
      */
+
     global.ctx = ctx;
+    global.canvas = {
+        width : canvas.width,
+        height : canvas.height,
+        numRows : canvas.numRows,
+        numCols : canvas.numCols,
+        cellWidth : canvas.cellWidth,
+        cellHeight : canvas.cellHeight
+    }
 })(this);
