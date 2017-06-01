@@ -12,3 +12,5 @@ Open index.html in a browser to load the game.
 ## Game Score
 - 10 points will be added to score whenever player reaches water.
 - 5 points will be added to players score whenever gem items collected.
+
+[Click to play:](https://gokhanap.github.io/frontend-nanodegree-arcade-game/)

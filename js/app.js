@@ -1,3 +1,4 @@
+"use strict";
 // HEART CLASS
 // Heart item player can collect
 var Heart = function() {
@@ -9,7 +10,7 @@ var Heart = function() {
 
 // Adds life to players life if less than 4.
 Heart.prototype.addLife = function() {
-    if (player.life < 4) {
+    if  (player.life < 4) {
         player.life++;
     }
 };
@@ -40,7 +41,7 @@ Heart.prototype.checkCollected = function() {
         y: this.y + 80,
         width: 83 - 5 - 5,
         height: 171 - 40 - 80
-    }
+    };
 
 // Calculates player boundaries for collecting
     var playerArea = {
@@ -48,7 +49,7 @@ Heart.prototype.checkCollected = function() {
         y: player.y + 70,
         width: 83 - 20 - 20,
         height: 171 - 35 - 70
-    }
+    };
 
 // 2d collection detection
     if (itemArea.x < playerArea.x + playerArea.width &&
@@ -94,7 +95,7 @@ Gem.prototype.checkCollected = function() {
         y: this.y + 80,
         width: canvas.cellWidth - 5 - 5,
         height: 171 - 30 - 80
-    }
+    };
 
 // Calculates player boundaries for collecting
     var playerArea = {
@@ -102,7 +103,7 @@ Gem.prototype.checkCollected = function() {
         y: player.y + 70,
         width: 83 - 20 - 20,
         height: 171 - 35 - 70
-    }
+    };
 
 // 2d collection detection
     if (itemArea.x < playerArea.x + playerArea.width &&
@@ -160,7 +161,7 @@ Enemy.prototype.checkCollisions = function() {
         y: this.y + 80,
         width: 83 - 5 - 5,
         height: 171 - 30 - 80
-    }
+    };
 
 // Calculates player boundaries for collision
     var playerArea = {
@@ -168,7 +169,7 @@ Enemy.prototype.checkCollisions = function() {
         y: player.y + 70,
         width: 83 - 20 - 20,
         height: 171 - 35 - 70
-    }
+    };
 
 // 2d collision detection
     if (enemyArea.x < playerArea.x + playerArea.width &&
@@ -319,14 +320,14 @@ Level.prototype.render = function() {
 // Random number generation method.
 // Will be used for random locating item.
 Level.prototype.randomCol = function() {
-  min = Math.ceil(1);
-  max = Math.floor(5);
+  var min = Math.ceil(1);
+  var max = Math.floor(5);
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
 Level.prototype.randomRow = function() {
-  min = Math.ceil(1);
-  max = Math.floor(6);
+  var min = Math.ceil(1);
+  var max = Math.floor(6);
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
