@@ -1,5 +1,8 @@
+[![Arcade game preview](https://gokhanapaydin.com/img/project2_1200.jpg)](https://gokhanap.github.io/frontend-nanodegree-arcade-game/)
+
 # How to Run
-Open index.html in a browser to load the game.
+Open index.html in a browser to load the game.  
+Live version available: https://gokhanap.github.io/frontend-nanodegree-arcade-game/
 
 # Play instructions
 - Use keyboard buttons up, down, left and right to move your player.
@@ -12,5 +15,3 @@ Open index.html in a browser to load the game.
 ## Game Score
 - 10 points will be added to score whenever player reaches water.
 - 5 points will be added to players score whenever gem items collected.
-
-[Click to play:](https://gokhanap.github.io/frontend-nanodegree-arcade-game/)
